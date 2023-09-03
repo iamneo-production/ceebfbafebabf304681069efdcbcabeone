@@ -14,97 +14,56 @@ let conditions = [
     [2, 4, 6]
 ];
 
-// Function to handle player moves
-//const ticTacToe = (element, index) => {
-    function ticTacToe(btn, index) {
-        if (btn.value === '' && !checkWinner()) {
-            cells[index] = currentPlayer;
-            btn.value = currentPlayer;
-            btn.classList.add(currentPlayer);
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-            updateResult();
-            checkWinner();
-        }
+
+function ticTacToe(btn, index) {
+    if (btn.value === '' && !checkWinner()) {
+        cells[index] = currentPlayer;
+        btn.value = currentPlayer;
+        btn.classList.add(currentPlayer);
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        updateResult();
+        checkWinner();
     }
-    
+}
 
-    // Your game logic here
-
-    /*
-    **Part 1: Winning Conditions (Add your code here)**
-
-    1. Implement the logic to check for winning conditions using the 'conditions' array.
-    2. Display a winning message in the 'result' element when a player wins.
-    3. Disable all buttons after a win.
-    */
-
-    // Your code to update the game state and check for a win
-    // ...
-
-    // Your code to display the current player's turn
-    // ...
-
-    // Your code to handle button and cell interactions
-    // ...
-    function checkWinner() {
-        for (let condition of conditions) {
-            const [a, b, c] = condition;
-            if (cells[a] && cells[a] === cells[b] && cells[a] === cells[c]) {
-                result.innerHTML = `Player ${cells[a]} wins!`;
-                enableResetButton();
-                return true;
-            }
-        }
-        if (!cells.includes('')) {
-            result.innerHTML = "It's a draw!";
+function checkWinner() {
+    for (let condition of conditions) {
+        const [a, b, c] = condition;
+        if (cells[a] && cells[a] === cells[b] && cells[a] === cells[c]) {
+            result.innerHTML = `Player ${cells[a]} wins!`;
             enableResetButton();
             return true;
         }
-        return false;
     }
-    
-    // Function to update the result display
-    function updateResult() {
-        document.getElementById('current-player').innerText = currentPlayer;
+    if (!cells.includes('')) {
+        result.innerHTML = "It's a draw!";
+        enableResetButton();
+        return true;
     }
-    
-    // Function to enable the reset button
-    function enableResetButton() {
-        document.getElementById('reset').disabled = false;
-    }
-    
-//};
+    return false;
+}
 
-    /*
-    **Part 2: Reset Function (Add your code here)**
+// Function to update the result display
+function updateResult() {
+    document.getElementById('current-player').innerText = currentPlayer;
+}
 
-    1. Implement a new function that resets the game to its initial state.
-    2. Ensure the 'cells', 'btns', and 'currentPlayer' variables are reset.
-    3. Update the 'result' element to indicate the current player's turn.
-    4. Re-enable all buttons for a new game.
-    */
+// Function to enable the reset button
+function enableResetButton() {
+    document.getElementById('reset').disabled = false;
+}
 
-// Function to reset the game
-//const resetGame = () => {
 
-    // Your code to reset the game state
-    // ...
+function resetGame() {
+    cells = ['', '', '', '', '', '', '', '', ''];
+    currentPlayer = 'X';
+    btns.forEach((btn) => {
+        btn.value = '';
+        btn.classList.remove('X', 'O');
+    });
+    result.innerHTML = `Player ${currentPlayer}'s Turn`;
+    document.getElementById('reset').disabled = true;
 
-    // Your code to update the 'result' element
-    // ...
-
-    // Your code to re-enable buttons
-    // ...
-    function resetGame() {
-        cells = ['', '', '', '', '', '', '', '', ''];
-        currentPlayer = 'X';
-        btns.forEach((btn) => {
-            btn.value = '';
-            btn.classList.remove('X', 'O');
-        });
-        result.innerHTML = `Player ${currentPlayer}'s Turn`;
-        document.getElementById('reset').disabled = true;
-    
 }
 
 btns.forEach((btn, i) => {
